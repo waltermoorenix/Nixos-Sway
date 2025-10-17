@@ -1,4 +1,5 @@
 
+
 { config, pkgs, ... }:
 
 {
@@ -8,11 +9,12 @@
     ];
 
   
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "cyberstation"; 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+ 
+
+  networking.hostName = "nixos"; 
   programs.waybar.enable = true; 
   networking.networkmanager.enable = true;
 
@@ -34,10 +36,12 @@
     LC_TIME = "pt_PT.UTF-8";
   };
 
+
+
   services.greetd.enable = true;
   services.greetd.settings.default_session =  {
         command = "sway";
-        user = "moore";
+        user = "moorenix";
 };
 
 
@@ -49,25 +53,31 @@
 
   console.keyMap = "pt-latin1";
   
-  users.users.moore = {
+  users.users.moorenix = {
     isNormalUser = true;
     description = "Walter Moore";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
   };
 
-  
+
+  programs.virt-manager.enable = true;
+
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   
   nixpkgs.config.allowUnfree = true;
   programs.sway = {
-         enable = true;
-         wrapperFeatures.gtk = true;
+    enable = true;
+    wrapperFeatures.gtk = true;
 };
   
   
     environment.systemPackages = with pkgs; [
-    vim 
+    vim
+    audacious
+    krita
     wget
     alacritty
     waybar
@@ -81,6 +91,18 @@
     swaybg
     chromium
     wofi
+    direnv
+    git
+    gcc
+    v4l-utils
+    at
+    obs-studio
+    vscodium
+    dunst
+    autotiling
+    pavucontrol
+    shotman
+    gruvbox-gtk-theme 
   ];
 
   
