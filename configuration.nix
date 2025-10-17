@@ -103,6 +103,7 @@
     pavucontrol
     shotman
     gruvbox-gtk-theme 
+    gemini-cli
   ];
 
   
